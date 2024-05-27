@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema<User>({
 	username: {
@@ -31,5 +31,5 @@ const userSchema = new mongoose.Schema<User>({
 	}
 })
 
-const userModel = mongoose.models.User || mongoose.model("User", userSchema)
+const userModel = mongoose.models.User as mongoose.Model<User> || mongoose.model("User", userSchema)
 export default userModel
