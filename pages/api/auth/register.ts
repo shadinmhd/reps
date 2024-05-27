@@ -7,6 +7,9 @@ import { createOtp } from "@/utils/auth"
 
 connectDb()
 
+// TODO: encrypt password
+// TODO: replace otp method with magic link
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
