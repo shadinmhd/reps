@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
+    "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
     "input-otp": "^1.2.4",
