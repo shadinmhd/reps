@@ -86,7 +86,7 @@ const Register = () => {
 					placeholder='Password'
 					className={inputStyle}
 				/>
-				{errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+				{errors.password && <p className='text-red-500'>{errors.password.message}</p>}
 
 				<input
 					{...register("confirmPassword")}
