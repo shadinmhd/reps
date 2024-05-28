@@ -4,6 +4,7 @@ import connectDb from "@/utils/database";
 import { sendOtp } from "@/utils/mail";
 import { NextApiRequest, NextApiResponse } from "next";
 import { createOtp } from "@/utils/auth"
+import { MongooseError } from "mongoose";
 
 connectDb()
 
@@ -23,21 +24,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 					success: false,
 					message: "Please fill all fields"
 				})
-			}
-
-			const userSearch = await userModel.findOne({
-				$or: [
-					{ username },
-					{ email }
-				]
-			})
-
-			if (userSearch) {
-				return res.status(400).send({
-					success: false,
-					messsage: "username or email allready in use"
-				})
-
 			}
 
 			const user = await new userModel({
@@ -66,8 +52,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			success: false,
 			message: `${req.method} is not allowed on this route`
 		})
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error)
+
+		if (error.code == 11000) {
+			res.status(400).send({
+				success: false,
+				message: `${Object.keys(error.keyPattern)[0]} is allready used`
+			})
+		}
+
 		res.status(500).send({
 			success: false,
 			message: "server error"
