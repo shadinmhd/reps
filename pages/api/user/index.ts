@@ -7,30 +7,42 @@ connectDb()
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
-		const { authorization } = req.headers
 
-		if (!authorization) {
-			return res.status(400).send({
-				success: false,
-				message: "User auth token is missing"
+		if (req.method == "OPTIONS") {
+			return res.status(200).end()
+		}
+
+		if (req.method == "POST") {
+			const { authorization } = req.headers
+
+			if (!authorization) {
+				return res.status(400).send({
+					success: false,
+					message: "User auth token is missing"
+				})
+			}
+
+			const token = decodeToken(authorization)
+
+			const user = await userModel.findById(token).select("-password")
+
+			if (!user) {
+				return res.status(400).send({
+					success: false,
+					message: "user not found"
+				})
+			}
+
+			return res.status(200).send({
+				success: true,
+				message: "User data fetched successfully",
+				user
 			})
 		}
 
-		const token = decodeToken(authorization)
-
-		const user = await userModel.findById(token).select("-password")
-
-		if (!user) {
-			return res.status(400).send({
-				success: false,
-				message: "user not found"
-			})
-		}
-
-		res.status(200).send({
-			success: true,
-			message: "User data fetched successfully",
-			user
+		res.status(405).send({
+			success: false,
+			message: `${req.method} not allowed`
 		})
 
 	} catch (error) {
