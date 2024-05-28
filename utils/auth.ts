@@ -1,10 +1,24 @@
-export const createOtp = (): string => {
-	const digits = '0123456789'
-	let otp = ''
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
-	for (let i = 0; i < 6; i++) {
-		otp += digits[Math.floor(Math.random() * digits.length)]
-	}
+export const createVerificationToken = () => {
+}
 
-	return otp
+export const encryptPass = async (password: string): Promise<string> => {
+	const salt = await bcrypt.genSalt(10)
+	return await bcrypt.hash(password, salt)
+}
+
+export const comparePass = async (password: string, encryptedPassword: string): Promise<boolean> => {
+	return await bcrypt.compare(password, encryptedPassword)
+}
+
+export const createToken = (id: string) => {
+	const JWT = process.env.JWT
+	return jwt.sign(id, JWT!)
+}
+
+export const decodeToken = (token: string): string => {
+	const JWT = process.env.JWT
+	return jwt.verify(token, JWT!) as string
 }
