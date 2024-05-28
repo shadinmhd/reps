@@ -10,7 +10,7 @@ const Navbar = () => {
 				Reps
 			</Link>
 			<div className='flex items-center gap-2'>
-				<Link href={"/login"} className='font-semibold p-2 rounded-md bg-[#101010]'>
+				<Link href={"/login"} className='font-semibold p-2 rounded-md bg-custom-gray'>
 					Login
 				</Link>
 				<Link href={"/register"} className='bg-white text-black font-semibold p-2 rounded-md'>

@@ -96,7 +96,7 @@ const Register = () => {
 				/>
 				{errors.confirmPassword && <p className='text-red-500'>{errors.confirmPassword.message}</p>}
 
-				<button type='submit' className='text-xl font-bold bg-[#101010] rounded-md p-2'>
+				<button type='submit' className='text-xl font-bold bg-custom-gray rounded-md p-2'>
 					Register
 				</button>
 
