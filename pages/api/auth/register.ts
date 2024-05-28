@@ -1,23 +1,21 @@
-import otpModel from "@/models/otp.model";
 import userModel from "@/models/user.model";
 import connectDb from "@/utils/database";
 import { sendOtp } from "@/utils/mail";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createOtp } from "@/utils/auth"
-import { MongooseError } from "mongoose";
+import { createVerificationToken } from "@/utils/auth"
+import { encryptPass } from "@/utils/password";
 
 connectDb()
-
-// TODO: encrypt password
-// TODO: replace otp method with magic link
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
+		if (req.method == "OPTIONS") {
+			return res.status(200).end()
+		}
+
 		if (req.method == "POST") {
 			const { username, email, password } = req.body
-			console.log(req.body)
-			console.log(username, email, password)
 
 			if (!username || !email || !password) {
 				return res.status(400).send({
@@ -26,21 +24,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				})
 			}
 
-			const user = await new userModel({
+			const hashedPassword = await encryptPass(password)
+			const token = createVerificationToken(email)
+
+			await new userModel({
 				username,
 				email,
-				password
+				password: hashedPassword,
+				token
 			}).save()
 
-			const otpCode = createOtp()
-			console.log(otpCode)
-
-			const otp = await new otpModel({
-				code: otpCode,
-				user: user._id
-			}).save()
-
-			sendOtp(email, otpCode)
+			sendOtp(email, token)
 
 			res.status(200).send({
 				success: true,

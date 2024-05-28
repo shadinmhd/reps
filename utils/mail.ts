@@ -13,12 +13,12 @@ const transporter = nodemailer.createTransport({
 })
 
 
-export const sendOtp = (to: string, url: string) => {
+export const sendOtp = (to: string, token: string) => {
 	const mailOptions: MailOptions = {
 		from: GMAIL,
 		to: to,
-		subject: "Otp for login in reps",
-		html: sendOtpEmail(url)
+		subject: "Otp for login in Reps",
+		html: OtpEmail(token)
 	}
 
 	transporter.sendMail(mailOptions, (error, info) => {
@@ -31,7 +31,14 @@ export const sendOtp = (to: string, url: string) => {
 }
 
 
-const sendOtpEmail = (url: string) => {
+const OtpEmail = (token: string) => {
+
+	const HOST = process.env.HOST
+
+	if (!HOST) {
+		throw new Error("Missing environment variable: 'HOST'")
+	}
+
 	return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -64,11 +71,11 @@ const sendOtpEmail = (url: string) => {
                     <div style="color: rgb(0, 0, 0); text-align: left; --darkreader-inline-color: #e8e6e3;" data-darkreader-inline-color="">
                       <h1 style="margin: 1rem 0">Final step...</h1>
                       <p style="padding-bottom: 16px">Follow this link to verify your email address.</p>
-                      <p style="padding-bottom: 16px"><a href="${url}" target="_blank"
+                      <p style="padding-bottom: 16px"><a href="${HOST}/verify?token=${token}" target="_blank"
                           style="padding: 12px 24px; border-radius: 4px; color: rgb(255, 255, 255); background: rgb(43, 82, 245); display: inline-block; margin: 0.5rem 0px; --darkreader-inline-color: #e8e6e3; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor: #0829b0;"
                           data-darkreader-inline-color="" data-darkreader-inline-bgimage="" data-darkreader-inline-bgcolor="">Confirm now</a></p>
                       <p style="padding-bottom: 16px">If you didn’t ask to verify this address, you can ignore this email.</p>
-                      <p style="padding-bottom: 16px">Thanks,<br>The Reps</p>
+                      <p style="padding-bottom: 16px">Thanks,<br>The Reps Team</p>
                     </div>
                   </div>
                   <div style="padding-top: 20px; color: rgb(153, 153, 153); text-align: center; --darkreader-inline-color: #a8a095;"

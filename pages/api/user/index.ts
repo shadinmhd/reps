@@ -1,43 +1,40 @@
 import userModel from "@/models/user.model"
 import { NextApiRequest, NextApiResponse } from "next"
-import { createAuthToken } from "@/utils/jwt"
-import { comparePass } from "@/utils/password"
+import { decodeToken } from "@/utils/jwt"
 import connectDb from "@/utils/database"
 
 connectDb()
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
+		const { authorization } = req.headers
 
-		const { email, password } = req.body
+		if (!authorization) {
+			return res.status(400).send({
+				success: false,
+				message: "User auth token is missing"
+			})
+		}
 
-		const user = await userModel.findOne({ email })
+		const token = decodeToken(authorization)
+
+		const user = await userModel.findById(token).select("-password")
 
 		if (!user) {
 			return res.status(400).send({
 				success: false,
-				message: "User doesn't exist"
+				message: "user not found"
 			})
 		}
-
-		const passCheck = comparePass(password, user.password as string)
-
-		if (!passCheck) {
-			return res.status(400).send({
-				success: false,
-				message: "Incorrect email or password"
-			})
-		}
-
-		const token = createAuthToken(String(user._id))
 
 		res.status(200).send({
 			success: true,
-			message: "logged in successfully",
-			token
+			message: "User data fetched successfully",
+			user
 		})
 
 	} catch (error) {
+		console.log(error)
 		res.status(500).send({
 			success: false,
 			message: "server error"

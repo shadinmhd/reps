@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 import cn from "@/utils/cn"
 import { Toaster } from "sonner"
+import Provider from "@/components/Provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -16,9 +17,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 	return (
 		<html lang="en">
 			<body className={cn(inter.className, 'bg-black  text-white')}>
-				<Toaster richColors/>
-				<Navbar />
-				{children}
+				<Provider>
+					<Toaster richColors />
+					<Navbar />
+					{children}
+				</Provider>
 			</body>
 		</html>
 	)

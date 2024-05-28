@@ -1,4 +1,5 @@
 "use client"
+import api, { handleAxiosError } from '@/utils/api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -31,31 +32,21 @@ const Register = () => {
 	const router = useRouter()
 	const { register, handleSubmit, formState: { errors } } = useForm<formType>({ resolver: zodResolver(formSchema) })
 
-	const onSubmit = async (data: formType) => {
-		console.log(data)
+	const onSubmit = async (body: formType) => {
 		try {
-			const response = await fetch("/api/auth/register", {
-				method: "POST",
-				headers: {
-					'Content-type': "application/json"
-				},
-				body: JSON.stringify({
-					username: data.username,
-					password: data.password,
-					email: data.email
-				})
+			const { data } = await api.post("/api/auth/register", {
+				username: body.username,
+				password: body.password,
+				email: body.email
 			})
 
-			const body = await response.json()
-
-			if (body.success) {
+			if (data.success) {
 				router.push("/verify")
 			} else {
-				toast.error(body.message)
+				toast.error(data.message)
 			}
-
 		} catch (error) {
-			console.log(error)
+			handleAxiosError(error)
 		}
 	}
 

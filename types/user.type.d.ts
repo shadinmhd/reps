@@ -5,6 +5,6 @@ interface User {
 	image: string | undefined
 	createdAt: Date
 	verified: boolean
-	otp: string
-	otpExpiry: Date
+	token: string
+	tokenExpiry: Date
 }

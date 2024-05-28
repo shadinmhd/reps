@@ -23,11 +23,13 @@ const userSchema = new mongoose.Schema<User>({
 		type: Boolean,
 		default: false
 	},
-	otp: {
-		type: String
+	token: {
+		type: String,
+		required: true
 	},
-	otpExpiry: {
-		type: Date
+	tokenExpiry: {
+		type: Date,
+		default: Date.now() + 1000 * 60 * 5
 	}
 })
 
