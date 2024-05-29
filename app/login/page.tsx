@@ -1,12 +1,12 @@
 "use client"
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import api, { handleAxiosError } from '@/utils/api'
+import { useUser } from '@/context/userContext'
 
 const formSchema = z.object({
 	email: z.string().email({ message: "Please enter a valid email" }),
@@ -18,6 +18,7 @@ type formType = z.infer<typeof formSchema>
 const Login = () => {
 
 	const router = useRouter()
+	const { login } = useUser()
 	const { register, formState: { errors }, handleSubmit } = useForm<formType>({ resolver: zodResolver(formSchema) })
 
 	const onSubmit = async (body: formType) => {
@@ -26,6 +27,7 @@ const Login = () => {
 			const { data } = await api.post("/auth/login", body)
 			if (data.success) {
 				localStorage.setItem("token", data.token)
+				login()
 				router.push("/dash")
 			} else {
 				toast.error(data.message)
