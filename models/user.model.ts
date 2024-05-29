@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema<User>({
 		type: Date,
 		default: Date.now() + 1000 * 60 * 5
 	}
-})
+}, { timestamps: true })
 
 const userModel = mongoose.models.User as mongoose.Model<User> || mongoose.model("User", userSchema)
 export default userModel

@@ -3,8 +3,9 @@ interface User {
 	email: string
 	password: string | undefined
 	image: string | undefined
-	createdAt: Date
 	verified: boolean
 	token: string
 	tokenExpiry: Date
+	createdAt: Date
+	updatedAt: Date
 }
