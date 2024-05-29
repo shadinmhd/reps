@@ -2,6 +2,7 @@
 import api, { handleAxiosError } from "@/utils/api";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 interface Props {
 	loggedIn: boolean
@@ -24,8 +25,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
 	useEffect(() => {
 		if (localStorage.getItem("token")) {
+			console.log("logged in")
 			login()
-			getUserDetails()
 		}
 	}, [loggedIn])
 
@@ -44,10 +45,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
 	const login = () => {
 		setLoggedIn(true)
+		getUserDetails()
 	}
 
 	const logout = () => {
-
+		localStorage.removeItem("token")
+		setLoggedIn(false)
+		setUser(undefined)
+		redirect("/login")
 	}
 
 	return (
