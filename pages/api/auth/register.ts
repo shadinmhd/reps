@@ -26,12 +26,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 			const hashedPassword = await encryptPass(password)
 			const token = createVerificationToken(email)
+			const now = new Date()
 
 			await new userModel({
 				username,
 				email,
 				password: hashedPassword,
-				token
+				token,
+				tokenExpiry: new Date(now.getTime() + (100 * 60 * 5))
 			}).save()
 
 			sendOtp(email, token)

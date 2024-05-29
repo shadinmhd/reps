@@ -3,7 +3,6 @@ import api, { handleAxiosError } from '@/utils/api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -34,14 +33,14 @@ const Register = () => {
 
 	const onSubmit = async (body: formType) => {
 		try {
-			const { data } = await api.post("/api/auth/register", {
+			const { data } = await api.post("/auth/register", {
 				username: body.username,
 				password: body.password,
 				email: body.email
 			})
 
 			if (data.success) {
-				router.push("/verify")
+				router.push("/login")
 			} else {
 				toast.error(data.message)
 			}

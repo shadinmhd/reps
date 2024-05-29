@@ -1,4 +1,5 @@
 import userModel from "@/models/user.model";
+import { createVerificationToken } from "@/utils/auth";
 import { decodeToken } from "@/utils/jwt";
 import { sendOtp } from "@/utils/mail";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -21,6 +22,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 					message: "User not found"
 				})
 			}
+
+			const now = new Date()
+
+			user.token = createVerificationToken(user.email)
+			user.tokenExpiry = new Date(now.getTime() + (100 * 60 * 5))
+			await user.save()
 
 			sendOtp(user.email, user.token)
 
