@@ -13,8 +13,6 @@ export const middleware = (req: NextRequest) => {
 			}, { status: 401 })
 		}
 
-		const id = decodeToken(token)
-
 		return NextResponse.next()
 	} catch (error) {
 		console.log(error)
