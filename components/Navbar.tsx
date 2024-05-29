@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import Exit from '@/assets/icons/Exit'
 import Gear from '@/assets/icons/Gear'
 import DashboardIcon from '@/assets/icons/DashboardIcon'
+import { useRouter } from 'next/navigation'
 
 const Navbar = () => {
 
@@ -20,7 +21,7 @@ const Navbar = () => {
 			</Link>
 			{
 				loggedIn ?
-					<Menu className='flex items-center text-2xl font-bold' >
+					<Menu className='flex items-center text-2xl font-bold outline-none' >
 						{user?.username}
 					</Menu>
 					:
@@ -40,6 +41,7 @@ const Navbar = () => {
 const Menu = ({ children, className }: { children: ReactNode, className: string }) => {
 
 	const { logout } = useUser()
+	const router = useRouter()
 
 	return (
 		<DropdownMenu >
@@ -48,23 +50,30 @@ const Menu = ({ children, className }: { children: ReactNode, className: string 
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuGroup>
-					<DropdownMenuItem>
-						<Link href={"/dash"} className='flex items-center gap-2'>
-							<DashboardIcon className='text-xl' />
-							<p className='font-bold text-lg'>Dashboard</p>
-						</Link>
+
+					<DropdownMenuItem
+						onClick={() => { router.push("/dash") }}
+						className='flex items-center gap-2 cursor-pointer'
+					>
+						<DashboardIcon className='text-xl' />
+						<p className='font-bold text-lg'>Dashboard</p>
 					</DropdownMenuItem>
-					<DropdownMenuItem>
-						<Link href={"/dash/settings"} className='flex items-center gap-2'>
-							<Gear className='text-xl' />
-							<p className='font-bold text-lg'>Settings</p>
-						</Link>
+
+					<DropdownMenuItem
+						onClick={() => { router.push("/dash/settings") }}
+						className='flex items-center gap-2 cursor-pointer'
+					>
+						<Gear className='text-xl' />
+						<p className='font-bold text-lg'>Settings</p>
 					</DropdownMenuItem>
+
 				</DropdownMenuGroup>
+
 				<DropdownMenuItem onClick={logout} className='flex gap-2 items-center cursor-pointer'>
 					<Exit className='text-xl' />
 					<p className='font-bold text-lg'>Logout</p>
 				</DropdownMenuItem>
+
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)
