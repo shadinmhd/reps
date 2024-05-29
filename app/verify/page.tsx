@@ -12,7 +12,6 @@ const Verify = () => {
 	const { user, loggedIn } = useUser()
 	const token = useSearchParams()?.get("token")
 	const [loading, setLoading] = useState<boolean>(true)
-	const [failed, setFailed] = useState<boolean>(false)
 	const [message, setMessage] = useState<string>("")
 	const router = useRouter()
 
@@ -30,7 +29,6 @@ const Verify = () => {
 				})
 				.catch(error => {
 					if (isAxiosError(error)) {
-						setFailed(true)
 						setMessage(error.response?.data.message || error.message)
 					}
 					// handleAxiosError(error)
