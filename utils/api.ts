@@ -31,7 +31,7 @@ api.interceptors.response.use(
 export const handleAxiosError = (error: any) => {
 	if (isAxiosError(error)) {
 		if (error.response?.data.message) {
-			toast(error.response.data.message)
+			toast.error(error.response.data.message)
 		} else {
 			toast.error(error.message)
 		}
