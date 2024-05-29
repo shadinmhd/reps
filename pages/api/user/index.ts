@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(200).end()
 		}
 
-		if (req.method == "POST") {
+		if (req.method == "GET") {
 			const { authorization } = req.headers
 
 			if (!authorization) {
