@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
     "input-otp": "^1.2.4",
+    "jose": "^5.3.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.379.0",
     "mongodb": "^6.6.2",

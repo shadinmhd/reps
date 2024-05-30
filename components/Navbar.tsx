@@ -48,7 +48,7 @@ const Menu = ({ children, className }: { children: ReactNode, className: string 
 			<DropdownMenuTrigger className={className}>
 				{children}
 			</DropdownMenuTrigger>
-			<DropdownMenuContent>
+			<DropdownMenuContent className='bg-black'>
 				<DropdownMenuGroup>
 
 					<DropdownMenuItem

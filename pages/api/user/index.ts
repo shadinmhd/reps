@@ -22,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				})
 			}
 
-			const token = decodeToken(authorization)
+			const token = decodeToken(authorization).id
 
 			const user = await userModel.findById(token).select("-password")
 

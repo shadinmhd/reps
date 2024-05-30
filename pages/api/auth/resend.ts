@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		if (req.method == "GET") {
 			const token = req.headers.authorization
-			const id = decodeToken(token!)
+			const id = decodeToken(token!).id
 			const user = await userModel.findById(id)
 
 			if (!user) {

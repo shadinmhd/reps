@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="en">
-			<body className={cn(inter.className, 'bg-black  text-white')}>
+			<body className={cn(inter.className, 'bg-black  text-white h-screen overflow-hidden')}>
 				<Provider>
 					<Toaster richColors />
 					<Navbar />

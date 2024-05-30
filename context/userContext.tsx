@@ -25,7 +25,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
 	useEffect(() => {
 		if (localStorage.getItem("token")) {
-			console.log("logged in")
 			login()
 		}
 	}, [loggedIn])
