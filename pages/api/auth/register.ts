@@ -38,7 +38,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 			sendOtp(email, token)
 
-			res.status(200).send({
+			return res.status(200).send({
 				success: true,
 				message: "user created success fully"
 			})
