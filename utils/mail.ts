@@ -21,6 +21,8 @@ export const sendOtp = (to: string, token: string) => {
 		html: OtpEmail(token)
 	}
 
+	console.log("Mail sending to: ", to)
+
 	transporter.sendMail(mailOptions, (error, info) => {
 		if (error) {
 			console.log("Error sending mail: ", error)
