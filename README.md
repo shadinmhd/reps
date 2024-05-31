@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Todo
 
-## Getting Started
+[visit the site](https://todo.shadinmhd.in)
 
-First, run the development server:
+todo is a application made for increasing your productivity by letting you keep track of what needs to be done
+
+
+## stack
+
+- nextjs
+- mongoose
+- bcrypt
+- jsonwebtoken
+- tailwindcss
+
+
+## Run locally
+
+#### pre-requisites
+
+- node : v20.^
+- npm : 10.^
+- mongodb: 7.^
+
+#### clone the repo
+
+close this repository to your preferred direcory
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    git clone https://github.com/shadinmhd/reps
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### install libraries
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+install the required javascript libraries using your preferred package manger 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+for npm:
+```bash
+    npm install 
+```
 
-## Learn More
+#### create environment variables
 
-To learn more about Next.js, take a look at the following resources:
+create .env.local file from the .env.example for easy fill for the requred variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+    cat .env.example > .env.local
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### start server
 
-## Deploy on Vercel
+start the server:
+```bash
+    npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+>[!WARNING]
+> by default nextjs uses 3000 port for the server make sure you are not using it or run the below command with your preffered port number
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+    npm run dev - --p <port number here>
+```
+
+now open your browser and visit http://localhost:3000 and wait for some seconds
+
