@@ -17,7 +17,7 @@ export const sendOtp = (to: string, token: string) => {
 	const mailOptions: MailOptions = {
 		from: GMAIL,
 		to: to,
-		subject: "Otp for login in Reps",
+		subject: "Otp for login in Todo",
 		html: OtpEmail(token)
 	}
 
@@ -75,7 +75,7 @@ const OtpEmail = (token: string) => {
                           style="padding: 12px 24px; border-radius: 4px; color: rgb(255, 255, 255); background: rgb(43, 82, 245); display: inline-block; margin: 0.5rem 0px; --darkreader-inline-color: #e8e6e3; --darkreader-inline-bgimage: initial; --darkreader-inline-bgcolor: #0829b0;"
                           data-darkreader-inline-color="" data-darkreader-inline-bgimage="" data-darkreader-inline-bgcolor="">Confirm now</a></p>
                       <p style="padding-bottom: 16px">If you didn’t ask to verify this address, you can ignore this email.</p>
-                      <p style="padding-bottom: 16px">Thanks,<br>The Reps Team</p>
+                      <p style="padding-bottom: 16px">Thanks,<br>The Todo Team</p>
                     </div>
                   </div>
                   <div style="padding-top: 20px; color: rgb(153, 153, 153); text-align: center; --darkreader-inline-color: #a8a095;"

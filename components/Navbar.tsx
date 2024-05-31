@@ -17,7 +17,7 @@ const Navbar = () => {
 		<header className='flex items-center justify-between p-5 px-10 w-full'>
 			<Link href={"/"} className='flex gap-2 items-center font-bold text-3xl'>
 				<Flexing className='text-5xl' />
-				Reps
+				Todo
 			</Link>
 			{
 				loggedIn ?

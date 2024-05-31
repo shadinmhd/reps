@@ -9,8 +9,8 @@ import Provider from "@/components/Provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-	title: "Reps",
-	description: "count your reps",
+	title: "Todo",
+	description: "count your tasks",
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
