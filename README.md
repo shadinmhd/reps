@@ -4,6 +4,10 @@
 
 todo is a application made for increasing your productivity by letting you keep track of what needs to be done
 
+## Links to pojoject relevent docs
+- [Database design](https://dbdiagram.io/d/Reps-66530544f84ecd1d2228bd72)
+- [Api documentation](/APIDOCS.md)
+- [Modules](/MODULES.md)
 
 ## stack
 
