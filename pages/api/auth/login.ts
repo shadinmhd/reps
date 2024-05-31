@@ -9,32 +9,43 @@ connectDb()
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 
-		const { email, password } = req.body
+		if (req.method == "OPTIONS") {
+			return res.status(200).end()
+		}
 
-		const user = await userModel.findOne({ email })
+		if (req.method == "POST") {
+			const { email, password } = req.body
 
-		if (!user) {
-			return res.status(400).send({
-				success: false,
-				message: "User doesn't exist"
+			const user = await userModel.findOne({ email })
+
+			if (!user) {
+				return res.status(400).send({
+					success: false,
+					message: "User doesn't exist"
+				})
+			}
+
+			const passCheck = comparePass(password, user.password as string)
+
+			if (!passCheck) {
+				return res.status(400).send({
+					success: false,
+					message: "Incorrect email or password"
+				})
+			}
+
+			const token = createAuthToken(String(user._id))
+
+			return res.status(200).send({
+				success: true,
+				message: "logged in successfully",
+				token
 			})
 		}
 
-		const passCheck = comparePass(password, user.password as string)
-
-		if (!passCheck) {
-			return res.status(400).send({
-				success: false,
-				message: "Incorrect email or password"
-			})
-		}
-
-		const token = createAuthToken(String(user._id))
-
-		res.status(200).send({
-			success: true,
-			message: "logged in successfully",
-			token
+		res.status(405).send({
+			success: false,
+			message: `${req.method} not allowed`
 		})
 
 	} catch (error) {
