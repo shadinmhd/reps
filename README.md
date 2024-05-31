@@ -31,7 +31,7 @@ todo is a application made for increasing your productivity by letting you keep 
 close this repository to your preferred direcory
 
 ```bash
-    git clone https://github.com/shadinmhd/reps
+    git clone https://github.com/shadinmhd/reps && cd reps
 ```
 
 #### install libraries
