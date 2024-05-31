@@ -44,5 +44,5 @@ export const middleware = async (req: NextRequest) => {
 }
 
 export const config = {
-	matcher: ['/api/user/:path*', "/api/plan/:path*", "/api/exercise/:path*"]
+	matcher: ['/api/user/:path*', "/api/todo/:path*"]
 }
