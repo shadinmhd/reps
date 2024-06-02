@@ -23,12 +23,16 @@ export const sendOtp = (to: string, token: string) => {
 
 	console.log("Mail sending to: ", to)
 
-	transporter.sendMail(mailOptions, (error, info) => {
-		if (error) {
-			console.log("Error sending mail: ", error)
-		} else {
-			console.log("Email sent:", info.response)
-		}
+	return new Promise((resolve, reject) => {
+		transporter.sendMail(mailOptions, (error, info) => {
+			if (error) {
+				console.log("Error sending mail: ", error)
+				reject(error)
+			} else {
+				console.log("Email sent:", info.response)
+				resolve(info)
+			}
+		})
 	})
 }
 

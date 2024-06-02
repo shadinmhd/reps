@@ -36,7 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				tokenExpiry: new Date(now.getTime() + (1000 * 60 * 5))
 			}).save()
 
-			sendOtp(email, token)
+			await sendOtp(email, token)
 
 			return res.status(200).send({
 				success: true,
