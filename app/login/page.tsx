@@ -22,7 +22,6 @@ const Login = () => {
 	const { register, formState: { errors }, handleSubmit } = useForm<formType>({ resolver: zodResolver(formSchema) })
 
 	const onSubmit = async (body: formType) => {
-		console.log(body)
 		try {
 			const { data } = await api.post("/auth/login", body)
 			if (data.success) {
