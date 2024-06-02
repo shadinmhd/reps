@@ -26,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			const now = new Date()
 
 			user.token = createVerificationToken(user.email)
-			user.tokenExpiry = new Date(now.getTime() + (100 * 60 * 5))
+			user.tokenExpiry = new Date(now.getTime() + (1000 * 60 * 5))
 			await user.save()
 
 			sendOtp(user.email, user.token)

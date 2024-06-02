@@ -33,7 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				email,
 				password: hashedPassword,
 				token,
-				tokenExpiry: new Date(now.getTime() + (100 * 60 * 5))
+				tokenExpiry: new Date(now.getTime() + (1000 * 60 * 5))
 			}).save()
 
 			sendOtp(email, token)
